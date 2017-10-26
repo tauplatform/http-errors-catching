@@ -13,6 +13,9 @@
   <h4>Manual requests result</h4>
   <div id="manual-requests-result"></div>
 
+  <h4>Immediately requests result</h4>
+  <div id="immediately-requests-result"></div>
+
   <h4>Auto requests result</h4>
   <div id="auto-requests-result"></div>
 </div>
@@ -45,31 +48,63 @@
     });
 
     $(function () {
-        setInterval(function () {
-            $.get("/app/Settings/get")
-                .done(function () {
-                    console.log("Automatic GET request is successful", new Date());
-                    $("#auto-requests-result").prepend("<div class='text-success'>GET request is success " + new Date() + "</div>");
-                })
-                .fail(function () {
-                    console.log("Automatic GET request is failed", new Date());
-                    $("#auto-requests-result").prepend("<div class='text-danger'>GET request is failed " + new Date() + "</div>");
-                });
-        }, 5000);
+//        setInterval(function () {
+//            $.get("/app/Settings/get")
+//                .done(function () {
+//                    console.log("Automatic GET request is successful", new Date());
+//                    $("#auto-requests-result").prepend("<div class='text-success'>GET request is success " + new Date() + "</div>");
+//                })
+//                .fail(function () {
+//                    console.log("Automatic GET request is failed", new Date());
+//                    $("#auto-requests-result").prepend("<div class='text-danger'>GET request is failed " + new Date() + "</div>");
+//                });
+//        }, 5000);
+//
+//        setTimeout(function () {
+//            setInterval(function () {
+//                $.post("/app/Settings/post")
+//                    .done(function () {
+//                        console.log("Automatic POST request is successful", new Date());
+//                        $("#auto-requests-result").prepend("<div class='text-success'>POST request is success " + new Date() + "</div>");
+//                    })
+//                    .fail(function () {
+//                        console.log("Automatic POST request is failed", new Date());
+//                        $("#auto-requests-result").prepend("<div class='text-danger'>POST request is failed " + new Date() + "</div>");
+//                    });
+//            }, 5000)
+//        }, 2000);
+    });
 
-        setTimeout(function () {
-            setInterval(function () {
-                $.post("/app/Settings/post")
-                    .done(function () {
-                        console.log("Automatic POST request is successful", new Date());
-                        $("#auto-requests-result").prepend("<div class='text-success'>POST request is success " + new Date() + "</div>");
-                    })
-                    .fail(function () {
-                        console.log("Automatic POST request is failed", new Date());
-                        $("#auto-requests-result").prepend("<div class='text-danger'>POST request is failed " + new Date() + "</div>");
-                    });
-            }, 5000)
-        }, 2000);
-    })
+    setInterval(function () {
+        $.post("/app/Settings/handle_get_request")
+            .done(function (err, res) {
+                console.log("done GET err", err);
+                console.log("done GET res", res);
+                console.log("Immediately GET request is successful", new Date());
+                $("#immediately-requests-result").prepend("<div class='text-success'>GET request is success " + new Date() + "</div>");
+            })
+            .fail(function (err, res) {
+                console.log("fail GET err", err);
+                console.log("fail GET res", res);
+                console.log("Immediately GET request is failed", new Date());
+                $("#immediately-requests-result").prepend("<div class='text-danger'>GET request is failed " + new Date() + "</div>");
+            });
+    }, 1000)
+
+    setInterval(function () {
+        $.post("/app/Settings/handle_post_request")
+            .done(function (err, res) {
+                console.log("done GET err", err);
+                console.log("done GET res", res);
+                console.log("Immediately POST request is successful", new Date());
+                $("#immediately-requests-result").prepend("<div class='text-success'>POST request is success " + new Date() + "</div>");
+            })
+            .fail(function (err, res) {
+                console.log("fail POST err", err);
+                console.log("fail POST res", res);
+                console.log("Immediately POST request is failed", new Date());
+                $("#immediately-requests-result").prepend("<div class='text-danger'>POST request is failed " + new Date() + "</div>");
+            });
+    }, 1000)
 
 </script>
